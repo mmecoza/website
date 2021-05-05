@@ -1,0 +1,21 @@
+.w3-image {
+  height: 4rem;
+}
+.nav-text {
+  font-size: 1.20rem;
+}
+.w3-nav-btn {
+  font-size: 2rem;
+}
+a, a:hover {
+  text-decoration-line: none;
+}
+.w3-dropdown-hover button span:after {
+  content: ' \25B6\00A0' ;
+}
+.w3-dropdown-hover button:hover span:after {
+  content: '\25BC\00A0'
+}
+nav {
+  height: 80px;
+}

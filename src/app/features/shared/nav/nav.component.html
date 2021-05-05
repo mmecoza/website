@@ -1,0 +1,25 @@
+<nav class="w3-fixed w3-bar nav-text bg-nav matilda w3-white">
+  <a class="w3-bar-item w3-show-inline-block" href="#about">
+    <img src="assets/logo.png" alt="" class="w3-image w3-bar-item ">
+  </a>
+  <div class="w3-bar-item w3-right">
+    <div class="w3-dropdown-click w3-mobile" >
+      <div class="w3-btn w3-nav-btn w3-theme-accent-1 w3-hide-large" (click)="toggleShow($event)"  >
+        <span [class.w3-hide]="isShowing">&equiv;</span>
+        <span [class.w3-hide]="!isShowing">&times;</span></div>
+      <div class="w3-dropdown-content w3-bar-block w3-theme-accent-1 w3-animate-right" [class.w3-show]="isShowing" (click)="toggleShow($event)">
+        <a class="w3-bar-item w3-button w3-hover-teal" href="#home" >HOME</a>
+        <a class="w3-bar-item w3-button w3-hover-teal" href="#about" >ABOUT</a>
+        <a href="#services" class="w3-bar-item w3-button w3-hover-teal">SERVICES</a>
+        <a href="#contact" class="w3-bar-item w3-button w3-hover-teal">CONTACT</a>
+      </div>
+    </div>
+
+    <div class="w3-bar w3-hide-small w3-hide-medium w3-padding-16">
+      <a class="w3-bar-item w3-theme-accent-hover-text" href="#home"><b>HOME</b></a>
+      <a class="w3-bar-item w3-theme-accent-hover-text" href="#about"><b>ABOUT</b></a>
+      <a href="#services" class="w3-bar-item w3-theme-accent-hover-text"><b>SERVICES</b></a>
+      <a href="#contact" class="w3-bar-item w3-theme-accent-hover-text"><b>CONTACT</b></a>
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "mukuwe-moyo-engineering": {
+      "hosting": {
+        "mmeco": [
+          "mukuwe-moyo-engineering"
+        ]
+      }
+    }
+  }
+}

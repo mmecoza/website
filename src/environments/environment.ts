@@ -3,7 +3,24 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  firebase: {
+    apiKey: 'AIzaSyBcbkGWJNRN4zMwgURkwu0pj3Ke1rQ66d4',
+    authDomain: 'mukuwe-moyo-engineering.firebaseapp.com',
+    projectId: 'mukuwe-moyo-engineering',
+    storageBucket: 'mukuwe-moyo-engineering.appspot.com',
+    messagingSenderId: '350254453025',
+    appId: '1:350254453025:web:4dc3ef91ac1d6434cfee60',
+    measurementId: 'G-SPKXFG2R9H'
+  },
+  merchant:  {
+      id: '10000100',
+      key: '46f0cd694581a',
+      destinationURL: 'https://mukuwemoyoengineering.co.za/#success',
+      actionURL: 'https://sandbox.payfast.co.za/eng/process',
+      notification: 'https://bella-sheek.web.app/notify/',
+      store: 'BellaSheek Store'
+  }
 };
 
 /*

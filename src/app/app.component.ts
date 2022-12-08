@@ -2,6 +2,9 @@ import {AfterContentInit, Component, OnDestroy, OnInit} from '@angular/core';
 import {Slide} from './core';
 import {Email} from './core';
 import {EmailService} from './services/email.service';
+import {AngularFireAuth} from '@angular/fire/auth';
+import {environment} from '../environments/environment';
+import {isArray} from 'rxjs/internal-compatibility';
 
 @Component({
   selector: 'app-root',
@@ -21,14 +24,35 @@ export class AppComponent implements OnInit, AfterContentInit, OnDestroy{
   bookingForm = false;
   artistNameForm = '';
   bookEmail = new Email();
+  showOrders = false;
+  total = '';
+  person = {name: '', surname: '', email: '', phone: ''};
 
   constructor(
-    private email: EmailService
+    private email: EmailService,
   ) { }
 
   ngOnInit(): void {
     this.slideList = this.slideLoader();
     this.slides  = this.slideShow;
+  }
+  get priceList(): any[] {
+    return [
+      {price: '10000', text: 'Basic Website Package'},
+      {price: '20000', text: 'Medium Website Package'},
+      {price: '30000', text: 'DevOps Package'},
+      {price: '50000', text: 'Basic App Package'},
+      {price: '80000', text: 'Medium App Package'},
+      {price: '99099', text: 'Deposit Ultimate Package'},
+    ];
+  }
+  message(ev: any): void {
+    this.email.sendEmail(this.bookEmail)
+      .then(() => {alert('Message Sent'); this.bookEmail = new Email(); })
+      .catch(console.log);
+  }
+  showModalOnClick(): void {
+    this.showOrders = !this.showOrders;
   }
   slideLoader(): Slide[] {
     const artists = [
@@ -210,6 +234,43 @@ export class AppComponent implements OnInit, AfterContentInit, OnDestroy{
       this.visibility[a] = false;
     }
     this.visibility[i] = true;
+  }
+  sendMoney(): void {
+    const form = document.createElement('form');
+    form.action = environment.merchant.actionURL;
+    form.method = 'POST';
+    const formData = new FormData();
+    formData.append('merchant_id', environment.merchant.id);
+    formData.append('merchant_key', environment.merchant.key);
+    formData.append('amount', this.total);
+    formData.append('payment_method', 'cc');
+    const keys = Object.keys(this.person);
+    if (Array.isArray(keys)) {
+      for (const formDataKey in keys) {
+        // @ts-ignore
+        const val = this.person[formDataKey] as string;
+        if (val) {
+          formData.append(formDataKey, val);
+        }
+      }
+    }
+    formData.append('item_name',
+      `Order Number: B${(new Date()).getFullYear()}${this.total}`);
+    formData.append('item_description', 'Ordered Service');
+
+    formData.append('return_url', `${environment.merchant.destinationURL}`);
+    formData.append('notify_url', environment.merchant.notification);
+    formData.forEach((inputName, key) => {
+      const input = document.createElement('input');
+      input.name = key;
+      input.value = formData.get(key) as string;
+      input.type = 'hidden';
+      input.hidden = true;
+      form.appendChild(input);
+    });
+    // console.log(this.cartService.newCart.total, this.cartService.newCart.id);
+    document.body.appendChild(form);
+    form.submit();
   }
   animateSlides(): void {
     const { doc, slideShow } = this;
